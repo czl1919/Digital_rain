@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Digital rain</title>
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+			background-color: black;
+		}
+	</style>
+	<script>
+		window.onload = function() {
+			const WINDOW_WIDTH = window.innerWidth;
+			const WINDOW_HEIGHT = window.innerHeight;
+			const fontSize = 18;
+			const columnNum = Math.floor(WINDOW_WIDTH / 18);
+			const charArray = [];
+			const charHeight = [];
+
+			for(let i = 0; i < columnNum; ++i) {
+				charHeight[i] = 0;
+			}
+
+
+			const oCav = document.getElementById('cav');
+			oCav.width = WINDOW_WIDTH
+			oCav.height = WINDOW_HEIGHT;
+
+			const oCtx = oCav.getContext("2d");
+
+			oCtx.font = 32 + "px Simsun";
+
+
+			setInterval(draw, 100);
+
+			function draw() {
+				oCtx.fillStyle = "rgba(0, 0, 0, 0.1)";
+				oCtx.fillRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+
+				oCtx.fillStyle = "rgb(0, 255, 0)";
+				for(let i = 0; i < columnNum; ++i) {
+					const char = String.fromCharCode(Math.floor(Math.random() * 255));
+
+					oCtx.fillText(char, i * fontSize, fontSize * charHeight[i]);
+
+					++charHeight[i];
+					if(fontSize * charHeight[i] > oCav.height || Math.random() > 0.95) {
+
+						oCtx.fillStyle = "rgb(0, 0, 0)";
+						oCtx.fillRect(i * fontSize, 0, fontSize, fontSize * charHeight[i]);
+						charHeight[i] = 0;
+						oCtx.fillStyle = "rgb(0, 255, 0)";
+					}
+				}
+			}
+		};
+	</script>
+</head>
+<body>
+	<canvas id="cav"></canvas>	
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
